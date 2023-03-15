@@ -10,7 +10,7 @@ const KEY = 'videoplayer-current-time';
 
 
 player.on('timeupdate', throttle(function(timeNow) {
-    localStorage.setItem(KEY, timeNow.seconds);
+    localStorage.setItem(KEY, timeNow.seconds)
 },1000));
 
 

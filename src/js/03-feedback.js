@@ -1,33 +1,44 @@
 import throttle from "lodash.throttle";
 
 const formEl = document.querySelector('.feedback-form');
-const email = document.querySelector('input');
-const message = document.querySelector('textarea');
-const localKey = 'feedback-form-state';
-const elements = {};
+const localKey = "feedback-form-state";
 
-autofill();
+let elements = {};
+
+
+const inputEl = document.querySelector('.feedback-form input');
+const textareaEl = document.querySelector('.feedback-form textarea');
+
+// fillform();
+
 
 formEl.addEventListener(
   'input',
-  throttle(e => {
-    elements[e.target.name] = e.target.value;
+  throttle(event => {
+    elements[event.target.name] = event.target.value;
     localStorage.setItem(localKey, JSON.stringify(elements));
   }, 500)
 );
 
-formEl.addEventListener('submit', e => {
-  e.preventDefault();
-  e.currentTarget.reset();
-  localStorage.removeItem(localKey);
-//   e.currentTarget.reset();
-  console.log(elements);
-});
+formEl.addEventListener('submit', event => {
+  event.preventDefault();
+  if (inputEl.value !== '' && textareaEl.value !== '') {
+    console.log(elements); 
+    localStorage.removeItem(localKey);
+    event.currentTarget.reset(); 
+    return;
+  }
+    alert('Please fill in all fields');
+})
 
-function autofill() {
-  const savedElements = JSON.parse(localStorage.getItem(localKey));
+
+const fillform = () => {
+  const savedElements = localStorage.getItem(localKey);
   if (savedElements) {
-    email.value = savedElements.email || '';
-    message.value = savedElements.message || '';
+    elements = JSON.parse(savedElements);
+    inputEl.value = elements.email || '';
+    textareaEl.value = elements.message || '';
   }
 };
+
+
