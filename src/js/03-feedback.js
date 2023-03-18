@@ -9,7 +9,7 @@ let elements = {};
 const inputEl = document.querySelector('.feedback-form input');
 const textareaEl = document.querySelector('.feedback-form textarea');
 
-// fillform();
+fillform();
 
 
 formEl.addEventListener(
@@ -32,13 +32,11 @@ formEl.addEventListener('submit', event => {
 })
 
 
-const fillform = () => {
+function fillform() {
   const savedElements = localStorage.getItem(localKey);
   if (savedElements) {
     elements = JSON.parse(savedElements);
-    inputEl.value = elements.email || '';
-    textareaEl.value = elements.message || '';
+    inputEl.value = elements.email ?? '';
+    textareaEl.value = elements.message ?? '';
   }
 };
-
-

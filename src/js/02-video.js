@@ -14,8 +14,7 @@ player.on('timeupdate', throttle(function(timeNow) {
 },1000));
 
 
-player.setCurrentTime(JSON.parse(localStorage.getItem(KEY)));
-
+player.setCurrentTime(JSON.parse(localStorage.getItem(KEY) || 0));
 
 
 
